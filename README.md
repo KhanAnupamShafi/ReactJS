@@ -1,8 +1,8 @@
-# ![React + Redux Example App](project-logo.png)
+# ![React + Redux  App](project-logo.png)
 
 [![RealWorld Frontend](https://img.shields.io/badge/realworld-frontend-%23783578.svg)](http://realworld.io)
 
-> ### React + Redux codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
+> ### React + Redux
 
 <h3 align="center">ReactJS APP</h3>
 
