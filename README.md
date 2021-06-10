@@ -1,3 +1,7 @@
+[![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+
 <h3 align="center">ReactJS APP</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=khananupamshafi&label=Profile%20views&color=0e75b6&style=flat" alt="khananupamshafi" /> </p>
@@ -19,5 +23,3 @@
 This project is licensed under [MIT](https://opensource.org/licenses/MIT) license.
 
 ## :man_astronaut: Show your support
-
-!
