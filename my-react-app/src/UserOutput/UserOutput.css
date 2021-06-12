@@ -1,0 +1,9 @@
+.userOutput {
+  text-align: center;
+  background-color: #eee;
+  font: inherit;
+  border: 3px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  display: inline-block;
+}
