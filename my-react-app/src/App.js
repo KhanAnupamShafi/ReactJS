@@ -1,102 +1,190 @@
 import React, { Component } from "react";
-import Human from "./Person/Person";
+// import { SketchPicker } from "react-color";
+import Persons from "./Person/Person";
 import "./App.css";
 import Userinput from "./UserInput/UserInput";
 import Useroutput from "./UserOutput/UserOutput";
+import Validation from "./Validation/Validation";
+import Char from "./Char/Char";
 
 class App extends Component {
   state = {
     persons: [
-      { name: "Dip", age: "25" },
-      { name: "Max", age: "22" },
-      { name: "Nahid", age: "33" },
+      { id: "myid1", name: "Dip", age: "25" },
+      { id: "myid2", name: "Max", age: "22" },
+      { id: "myid3", name: "Nahid", age: "33" },
     ],
 
     otherValue: "Some other value",
     username: "KA Shafi",
+    showPerson: false,
+    textInput: "",
   };
 
-  // state = {
-  //   username: "KA Shafi",
-  // };
-
-  switchNameHandler = (newName) => {
-    // console.log("clicked");
-    this.setState({
-      persons: [
-        { name: newName, age: "25" },
-        { name: "Anupam", age: "26" },
-        { name: "Nahid", age: "25" },
-      ],
+  nameChangeHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex((p) => {
+      return p.id === id;
     });
+    // console.log(personIndex);
+    /* logs person index number {not value} where clicked */
+    const person = { ...this.state.persons[personIndex] };
+    // console.log(person);
+    person.name = event.target.value;
+    // console.log(person.name);       /* show input name typed given textfield */
+
+    const oldpersons = [...this.state.persons];
+    oldpersons[personIndex] = person;
+
+    this.setState({ persons: oldpersons });
   };
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: "Dip", age: "25" },
-        { name: event.target.value, age: "26" },
-        { name: event.target.nodeName, age: "25" },
-      ],
-    });
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
   };
 
+  /* assignment 1 */
   usernameChangeHandler = (event) => {
     this.setState({
       username: event.target.value,
     });
   };
 
+  /* assignment 2 */
+  inputChangehandler = (event) => {
+    this.setState({
+      textInput: event.target.value,
+    });
+  };
+
+  deleteInputHandler = (index) => {
+    const text = this.state.textInput.split("");
+    text.splice(index, 1);
+    const updatedtext = text.join("");
+    this.setState({
+      textInput: updatedtext,
+    });
+  };
+
   render() {
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push("red");
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push("bold");
+    }
+
     const style = {
-      backgroundColor: "#eee",
+      backgroundColor: "green",
+      color: "white",
       font: "inherit",
       border: "3px solid blue",
       padding: "8px",
       cursor: "pointer",
     };
 
+    let persons = null;
+    if (this.state.showPerson) {
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) => {
+            return (
+              <Persons
+                click={() => this.deletePersonHandler(index)}
+                name={person.name}
+                age={person.age}
+                key={person.id}
+                changed={(event) => this.nameChangeHandler(event, person.id)}
+              />
+            );
+          })}
+        </div>
+      );
+
+      style.backgroundColor = "red";
+    }
+
+    // ASSIGNMENT - 2
+    const charText = this.state.textInput.split("").map((ch, index) => {
+      return (
+        <Char
+          character={ch}
+          key={index}
+          clicked={() => this.deleteInputHandler(index)}
+        />
+      );
+    });
+
     return (
       <div className="App">
-        <h1>My APP</h1>
+        <h1>My App</h1>
+        <p className={classes.join(" ")}>This is a React.js App</p>
 
-        <button style={style} onClick={() => this.switchNameHandler("xxxxx")}>
-          Switch Name
+        <button style={style} onClick={this.togglePersonHandler}>
+          Toggle Name
         </button>
-        <Human
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-        >
-          Hobbies: Gaming
-        </Human>
-        <Human
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, "Deep")}
-          changed={this.nameChangeHandler}
-        >
-          Hobbies: racing
-        </Human>
-        <Human
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-          click={this.switchNameHandler.bind(this, "Khan")}
-          changed={this.nameChangeHandler}
-        />
+        <br />
+        {persons}
+        <br />
 
-        <Userinput
-          changed={this.usernameChangeHandler}
-          currentname={this.state.username}
-        ></Userinput>
-        <Useroutput userName={this.state.otherValue}></Useroutput>
-        <Useroutput userName={this.state.username}></Useroutput>
+        {/* assignment-1 */}
+        <div>
+          <Userinput
+            changed={this.usernameChangeHandler}
+            currentname={this.state.username}
+          />
+          <br />
+          <Useroutput userName={this.state.otherValue} />
+          <Useroutput userName={this.state.username} />
+          <Useroutput userName="Norman" />
+          <br />
+        </div>
 
-        <Useroutput userName={"Naruto"}></Useroutput>
-      </div>
+        <div>
+          {/* asignment 2 */}
+          <br />
+          <input
+            type="text"
+            onChange={this.inputChangehandler}
+            value={this.state.textInput}
+          />
+          <br />
+          {this.state.textInput}
+          <br />
+          <Validation size={this.state.textInput.length} />
+
+          {charText}
+        </div>
+      </div> /* <----class app ends */
     );
   }
 }
 
+/*  <div>
+          <Human
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+          >
+            Hobbies: Gaming
+          </Human>
+          <Human
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind(this, "Deep")}
+            changed={this.nameChangeHandler}
+          >
+            Hobbies: racing
+          </Human>
+          <Human
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age}
+            click={this.switchNameHandler.bind(this, "Khan")}
+            changed={this.nameChangeHandler}
+          />
+        </div> */
 export default App;
 
 /* const app = props =>  {
