@@ -6,6 +6,7 @@ import Userinput from "./UserInput/UserInput";
 import Useroutput from "./UserOutput/UserOutput";
 import Validation from "./Validation/Validation";
 import Char from "./Char/Char";
+// import Radium from "radium";
 // import { SketchPicker } from "react-color";
 
 class App extends Component {
@@ -90,6 +91,7 @@ class App extends Component {
       border: "3px solid blue",
       padding: "8px",
       cursor: "pointer",
+      ":hover": { backgroundColor: "lightgreen", color: "black" },
     };
 
     let persons = null;
