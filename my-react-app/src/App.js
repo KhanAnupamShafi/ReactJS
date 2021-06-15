@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-// import { SketchPicker } from "react-color";
+
 import Persons from "./Person/Person";
 import "./App.css";
 import Userinput from "./UserInput/UserInput";
 import Useroutput from "./UserOutput/UserOutput";
 import Validation from "./Validation/Validation";
 import Char from "./Char/Char";
+// import { SketchPicker } from "react-color";
 
 class App extends Component {
   state = {
@@ -17,7 +18,7 @@ class App extends Component {
 
     otherValue: "Some other value",
     username: "KA Shafi",
-    showPerson: false,
+    showPersons: false,
     textInput: "",
   };
 
@@ -68,6 +69,11 @@ class App extends Component {
     });
   };
 
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });
+  };
+
   render() {
     const classes = [];
     if (this.state.persons.length <= 2) {
@@ -87,7 +93,7 @@ class App extends Component {
     };
 
     let persons = null;
-    if (this.state.showPerson) {
+    if (this.state.showPersons) {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
@@ -120,15 +126,16 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>My App</h1>
-        <p className={classes.join(" ")}>This is a React.js App</p>
+        <div>
+          <h1>My App</h1>
+          <p className={classes.join(" ")}>This is a React.js App</p>
 
-        <button style={style} onClick={this.togglePersonHandler}>
-          Toggle Name
-        </button>
-        <br />
-        {persons}
-        <br />
+          <button style={style} onClick={this.togglePersonsHandler}>
+            Toggle Names
+          </button>
+
+          {persons}
+        </div>
 
         {/* assignment-1 */}
         <div>
