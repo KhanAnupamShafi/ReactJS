@@ -1,13 +1,27 @@
 import React, { Component } from "react";
 
+import styled from "styled-components";
 import Persons from "./Person/Person";
 import "./App.css";
 import Userinput from "./UserInput/UserInput";
 import Useroutput from "./UserOutput/UserOutput";
 import Validation from "./Validation/Validation";
 import Char from "./Char/Char";
-// import Radium from "radium";
+// import Radium, { StyleRoot } from "radium";
 // import { SketchPicker } from "react-color";
+
+const StyledButton = styled.button`
+  background-color: ${(props) => (props.alt ? "red" : "green")};
+  color: white;
+  font: inherit;
+  border: 2px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
+    color: black;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -84,16 +98,6 @@ class App extends Component {
       classes.push("bold");
     }
 
-    const style = {
-      backgroundColor: "green",
-      color: "white",
-      font: "inherit",
-      border: "3px solid blue",
-      padding: "8px",
-      cursor: "pointer",
-      ":hover": { backgroundColor: "lightgreen", color: "black" },
-    };
-
     let persons = null;
     if (this.state.showPersons) {
       persons = (
@@ -112,7 +116,8 @@ class App extends Component {
         </div>
       );
 
-      style.backgroundColor = "red";
+      /* style.backgroundColor = "red";
+      style[":hover"] = { backgroundColor: "salmon", color: "black" }; */
     }
 
     // ASSIGNMENT - 2
@@ -132,15 +137,21 @@ class App extends Component {
           <h1>My App</h1>
           <p className={classes.join(" ")}>This is a React.js App</p>
 
-          <button style={style} onClick={this.togglePersonsHandler}>
+          <StyledButton
+            alt={this.state.showPersons}
+            onClick={this.togglePersonsHandler}
+          >
             Toggle Names
-          </button>
+          </StyledButton>
+
+          <br />
 
           {persons}
         </div>
 
         {/* assignment-1 */}
         <div>
+          <br />
           <Userinput
             changed={this.usernameChangeHandler}
             currentname={this.state.username}
@@ -167,7 +178,8 @@ class App extends Component {
 
           {charText}
         </div>
-      </div> /* <----class app ends */
+      </div>
+      /* <----class app ends */
     );
   }
 }
