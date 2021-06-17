@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 
-import styled from "styled-components";
 import Persons from "./Person/Person";
-import "./App.css";
+import classes from "./App.module.css";
 import Userinput from "./UserInput/UserInput";
 import Useroutput from "./UserOutput/UserOutput";
 import Validation from "./Validation/Validation";
 import Char from "./Char/Char";
 // import Radium, { StyleRoot } from "radium";
 // import { SketchPicker } from "react-color";
+// import styled from "styled-components";
 
-const StyledButton = styled.button`
-  background-color: ${(props) => (props.alt ? "red" : "green")};
-  color: white;
-  font: inherit;
-  border: 2px solid blue;
-  padding: 8px;
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
-    color: black;
-  }
-`;
+// const StyledButton = styled.button`
+//   background-color: ${(props) => (props.alt ? "red" : "green")};
+//   color: white;
+//   font: inherit;
+//   border: 2px solid blue;
+//   padding: 8px;
+//   cursor: pointer;
+//   &:hover {
+//     background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
+//     color: black;
+//   }
+// `;
 
 class App extends Component {
   state = {
@@ -90,15 +90,17 @@ class App extends Component {
   };
 
   render() {
-    const classes = [];
+    const assignedclasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push("red");
+      assignedclasses.push(classes.red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push("bold");
+      assignedclasses.push(classes.bold);
     }
 
     let persons = null;
+    let btnClass = [classes.Button];
+
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -115,6 +117,7 @@ class App extends Component {
           })}
         </div>
       );
+      btnClass.push(classes.Red);
 
       /* style.backgroundColor = "red";
       style[":hover"] = { backgroundColor: "salmon", color: "black" }; */
@@ -132,17 +135,18 @@ class App extends Component {
     });
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <div>
-          <h1>My App</h1>
-          <p className={classes.join(" ")}>This is a React.js App</p>
+          <h1>My__App</h1>
+          <p className={assignedclasses.join(" ")}>This is a React.js App</p>
 
-          <StyledButton
-            alt={this.state.showPersons}
+          <button
+            className={btnClass.join(" ")}
+            // alt={this.state.showPersons}
             onClick={this.togglePersonsHandler}
           >
             Toggle Names
-          </StyledButton>
+          </button>
 
           <br />
 

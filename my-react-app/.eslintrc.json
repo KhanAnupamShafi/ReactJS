@@ -7,7 +7,7 @@
   "extends": [
     "plugin:react/recommended",
     "eslint:recommended",
-    //  "airbnb",
+    // "airbnb",
     "prettier",
     "plugin:prettier/recommended"
   ],
@@ -15,21 +15,42 @@
     "ecmaFeatures": {
       "jsx": true
     },
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    },
+    "es6": true,
     "ecmaVersion": 12,
     "sourceType": "module"
   },
 
-  "plugins": ["react", "prettier", "jsx-a11y", "import"],
+  "plugins": [
+    "react",
+    "prettier",
+    "jsx-a11y",
+    "import"
+    // "babel"
+    // "@babel/plugin-proposal-class-properties",
+    // "@babel/plugin-proposal-private-methods"
+  ],
 
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
 
   "rules": {
     "no-unused-vars": "warn",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "no-console": "warn",
+
     "import/first": "error",
     "react/prop-types": 0,
-    "linebreak-style": ["error", "unix"]
+    "linebreak-style": "off",
+    "prettier/prettier": 0 /*  [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ] */
+    // "no-invalid-this": 0,
+    // "babel/no-invalid-this": 1
   }
 }
